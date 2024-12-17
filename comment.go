@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"net/http"
 	"net/url"
 	"strings"
@@ -15,23 +14,6 @@ type Comment struct {
     Comment string
 }
 
-func start_database() {
-    var err error
-    db, err = sql.Open("sqlite3", "./database.db");
-    if err != nil {
-        panic(err.Error())
-    }
-
-    _, err = db.Exec(`CREATE TABLE IF NOT EXISTS Comment (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        Username TEXT NOT NULL,
-        Site TEXT,
-        Comment TEXT NOT NULL
-    );`)
-    if err != nil {
-        panic(err.Error())
-    }
-}
 
 func getComments() []Comment {
     var comments []Comment

@@ -20,7 +20,8 @@ var hitCounter int
 func main() {
     hitCounter = 0
     uniqueHits = 0
-    start_database()
+    
+    startDatabase()
     defer db.Close()
 
     tpl = template.Must(template.ParseGlob("templates/*.html"))
@@ -56,10 +57,11 @@ func indexPageHandler(w http.ResponseWriter, r *http.Request) {
         http.SetCookie(w, &http.Cookie{Name: "visted", Value: "true", Path:"/",MaxAge: 2147483647, HttpOnly: true, Secure: true})
     }
 
+    n, u := getHitCounter(w, r)
     data := map[string]interface{} {
         "status": "Working on Website",
-        "hits": hitCounter,
-        "uniqueHits": uniqueHits,
+        "hits": n,
+        "uniqueHits": u,
         "comments": getComments(),
     }
     err = tpl.ExecuteTemplate(w, "index.html", data)
@@ -79,5 +81,37 @@ func resumePageHandler(w http.ResponseWriter, r *http.Request) {
     err := tpl.ExecuteTemplate(w, "resume.html", nil)
     if err != nil {
         http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
+    }
+}
+
+func startDatabase() {
+    var err error
+    db, err = sql.Open("sqlite3", "./database.db");
+    if err != nil {
+        panic(err)
+    }
+
+    _, err = db.Exec(`
+    CREATE TABLE IF NOT EXISTS Comment (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Username TEXT NOT NULL,
+        Site TEXT,
+        Comment TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS Counter (
+        Label TEXT UNIQUE NOT NULL,
+        Count INTEGER
+    );`)
+    if err != nil {
+        panic(err)
+    }
+
+    _, err = db.Query("SELECT * FROM Counter;")
+    _, err = db.Exec(`
+    INSERT OR IGNORE INTO Counter (Label, Count) VALUES (?, ?);
+    INSERT OR IGNORE INTO Counter (Label, Count) VALUES (?, ?);
+    `, "unique", 0, "normal", 0)
+    if err != nil {
+        panic(err)
     }
 }
