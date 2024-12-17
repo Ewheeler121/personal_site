@@ -8,6 +8,8 @@ input[type="text"], input[type="url"], textarea {
     overflow-y: scroll;
     max-height: 200px;
     width: 100%;
+    flex-direction: column; /* Default column direction */
+    scroll-padding-bottom: 10px; /* Adjust as needed */
 }
 
 #comment-section p {

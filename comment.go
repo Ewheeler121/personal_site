@@ -35,7 +35,7 @@ func start_database() {
 
 func getComments() []Comment {
     var comments []Comment
-    rows, err := db.Query("SELECT Username, Site, Comment FROM Comment WHERE 1=1 LIMIT 25")
+    rows, err := db.Query("SELECT Username, Site, Comment FROM (SELECT * FROM Comment ORDER BY id DESC LIMIT 25) AS row ORDER BY ID ASC")
     if err != nil {
         return nil
     }
