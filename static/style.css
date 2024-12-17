@@ -1,0 +1,52 @@
+/* Thank you https://quietmuffin.itch.io/ for the background :) */
+
+@font-face {
+    font-family: 'VT323';
+    src: url('VT323-Regular.ttf') format('truetype');
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.blink {
+    animation: blink 1s step-start infinite;
+}
+
+#content {
+    max-width: 9in;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+html {
+    font-family: 'VT323';
+    image-rendering: pixelated;
+}
+
+table {
+    width: 100%;
+    border-spacing: 25px 15px;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+nav ul {
+    padding: 0;
+    list-style-type: none;
+}
