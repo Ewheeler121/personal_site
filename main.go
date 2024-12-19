@@ -14,13 +14,7 @@ var tpl *template.Template
 var db *sql.DB
 var Mu sync.Mutex
 
-var uniqueHits int
-var hitCounter int
-
 func main() {
-    hitCounter = 0
-    uniqueHits = 0
-    
     startDatabase()
     defer db.Close()
 
@@ -30,6 +24,7 @@ func main() {
     http.Handle("/static/", http.StripPrefix("/static/", fs))
 
     http.HandleFunc("/index.html", indexPageHandler)
+    http.HandleFunc("/comment-preview.html", commentPreviewHandler)
     http.HandleFunc("/resume.html", resumePageHandler)
     http.HandleFunc("/construction.html", constructionPageHandler)
     http.HandleFunc("/favicon.ico", faviconHandler)
@@ -50,21 +45,23 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func indexPageHandler(w http.ResponseWriter, r *http.Request) {
-    hitCounter++
-    _, err := r.Cookie("visted")
-    if err != nil {
-        uniqueHits++
-        http.SetCookie(w, &http.Cookie{Name: "visted", Value: "true", Path:"/",MaxAge: 2147483647, HttpOnly: true, Secure: true})
-    }
-
     n, u := getHitCounter(w, r)
     data := map[string]interface{} {
         "status": "Working on Website",
         "hits": n,
         "uniqueHits": u,
-        "comments": getComments(),
     }
-    err = tpl.ExecuteTemplate(w, "index.html", data)
+    err := tpl.ExecuteTemplate(w, "index.html", data)
+    if err != nil {
+        http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
+    }
+}
+
+func commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
+    data := map[string]interface{} {
+        "comments": renderComments(),
+    }
+    err := tpl.ExecuteTemplate(w, "comment-preview.html", data)
     if err != nil {
         http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
     }

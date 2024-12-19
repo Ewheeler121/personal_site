@@ -16,10 +16,28 @@
         <link rel="preload" href="/static/images/bg3c.png" as="image">
 
         <link rel="stylesheet" href="/static/style.css">
-        <link rel="stylesheet" href="/static/comment.css">
         <link rel="stylesheet" href="/static/scroll-div.css">
         <link rel="stylesheet" href="/static/background_c.css">
-
+        <style>
+            input[type="text"], input[type="url"], textarea {
+                font-family: 'VT323';
+            }
+            #comment-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+                margin: 0 auto;
+            }
+            #comment-form .row {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 400px;
+            }
+        </style>
     </head>
     <div id="bg1" class="background"></div>
     <div id="bg2" class="background"></div>
@@ -156,27 +174,7 @@
                     <tr>
                         <td style="width: 100%">
                             <h3>Comments</h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding:0px;">
-                                            <div id="comment-section" style="text-align: center">
-                                                {{ if .comments }}
-                                                    {{ range .comments }}
-                                                    {{ if .Site }}
-                                                    <p>{{ .User }}@{{ .Site }}: {{ .Comment }}</p>
-                                                    {{ else }}
-                                                    <p>{{ .User }}: {{ .Comment }}</p>
-                                                    {{ end }}
-                                                {{ end }}
-                                                {{ else }}
-                                                <p>Loading comments...</p>
-                                                {{ end }}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <iframe src="/comment-preview.html#bottom" style="width: 100%; height: 250px"></iframe>
                             <form action="/submit-comment" method="post" id="comment-form">
                                 <div class="row">
                                     <label for="username">Username:</label>

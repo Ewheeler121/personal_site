@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"html/template"
 	"net/http"
 	"net/url"
 	"strings"
@@ -15,11 +17,11 @@ type Comment struct {
 }
 
 
-func getComments() []Comment {
+func renderComments() template.HTML {
     var comments []Comment
     rows, err := db.Query("SELECT Username, Site, Comment FROM (SELECT * FROM Comment ORDER BY id DESC LIMIT 25) AS row ORDER BY ID ASC")
     if err != nil {
-        return nil
+        return template.HTML("<p>ERROR</p>")
     }
 
     for rows.Next() {
@@ -31,8 +33,20 @@ func getComments() []Comment {
         comments = append(comments, c)
     }
 
-    return comments 
+    var builder strings.Builder
+    
+    for _, comment := range comments {
+        builder.WriteString("<tr>\n")
+        c := strings.Split(comment.Comment, "\n")
+        builder.WriteString(fmt.Sprintf("<td class=\"username\"><h4>%s:</h4></td>\n<td class=\"comment\">", comment.User))
+        for _, l := range c {
+            builder.WriteString(fmt.Sprintf("<p>%s</p>\n", l))
+        }
+        builder.WriteString("</td>\n</tr>\n")
+    }
+    return template.HTML(builder.String())
 }
+
 func normalizeURL(u string) (string, error) {
     if u == "" {
         return "", nil
