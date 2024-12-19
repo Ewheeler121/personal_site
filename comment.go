@@ -38,7 +38,11 @@ func renderComments() template.HTML {
     for _, comment := range comments {
         builder.WriteString("<tr>\n")
         c := strings.Split(comment.Comment, "\n")
-        builder.WriteString(fmt.Sprintf("<td class=\"username\"><h4>%s:</h4></td>\n<td class=\"comment\">", comment.User))
+        if comment.Site == "" {
+            builder.WriteString(fmt.Sprintf("<td class=\"username\"><h4>%s:</h4></td>\n<td class=\"comment\">", comment.User))
+        } else {
+            builder.WriteString(fmt.Sprintf("<td class=\"username\"><h4>%s@%s:</h4></td>\n<td class=\"comment\">", comment.User, comment.Site))
+        }
         for _, l := range c {
             builder.WriteString(fmt.Sprintf("<p>%s</p>\n", l))
         }
