@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strings"
 
+    "github.com/TwiN/go-away"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -89,7 +90,7 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
 
     Mu.Lock()
     defer Mu.Unlock()
-    _, err = db.Exec("INSERT INTO Comment (Username, Site, Comment) VALUES (?, ?, ?)", c.User, c.Site, c.Comment)
+    _, err = db.Exec("INSERT INTO Comment (Username, Site, Comment) VALUES (?, ?, ?)", c.User, c.Site, goaway.Censor(c.Comment))
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
