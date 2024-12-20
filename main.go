@@ -47,7 +47,7 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 func indexPageHandler(w http.ResponseWriter, r *http.Request) {
     n, u := getHitCounter(w, r)
     data := map[string]interface{} {
-        "status": "Working on Website",
+        "status": getStatus(),
         "hits": n,
         "uniqueHits": u,
     }
