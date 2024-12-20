@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'VT323';
-    src: url('VT323-Regular.ttf') format('truetype');
+    src: url('/static/VT323-Regular.ttf') format('truetype');
 }
 
 @keyframes blink {
@@ -21,32 +21,85 @@
     animation: blink 1s step-start infinite;
 }
 
-#content {
-    max-width: 9in;
-    margin: 0 auto;
-    padding: 5px;
-}
-
 html {
     font-family: 'VT323';
     image-rendering: pixelated;
 }
 
-table {
-    width: 100%;
-    border-spacing: 25px 15px;
+#content {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 25px;
+    column-gap: 15px;
+    box-sizing: border-box;
+    justify-content: center;
+
+    max-width: 9in;
+    margin: 0 auto;
+    padding: 10px 30px;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 3px;
+    
+    background: var(--background-color);
+    color: var(--primary-color);
+}
+
+.box {
+    padding: 10px;
+    vertical-align: top;
+    border: 2px solid var(--primary-color);
+    border-radius: 3px;
+}
+
+.no-border {
+    border: none;
+}
+
+.b15 {
+    flex: 12%;
+}
+
+.b33 {
+    flex: 26.4%;
+}
+
+.b40 {
+    flex: 32%;
+}
+
+.b50 {
+    flex: 40%;
+}
+
+.b60 {
+    flex: 48%;
+}
+
+.b85 {
+    flex: 68%;
+}
+
+.b100 {
+    flex: 90%;
 }
 
 h1, h2, h3, h4 {
-    margin-top: 0;
+    margin: 0;
 }
 
-td {
-    padding: 10px;
-    vertical-align: top;
-}
-
-nav ul {
+ul {
     padding: 0;
     list-style-type: none;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    ul li {
+        display: inline;
+        margin-right: 10px;
+    }
 }

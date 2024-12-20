@@ -23,33 +23,27 @@
     <body>
         <div id="content">
             <h1 style="text-align: center">Resume</h1>
-            <table style="width: 100%">
-                <tr>
-                    <td>
-                        <h3 style="text-align:center">
-                        <a href="index.html">Home</a>
-                        <a href="construction.html">About</a>
-                        <a href="construction.html">Setup</a>
-                        <a href="construction.html">Blog</a>
-                        <a href="construction.html">Projects</a>
-                        <a href="construction.html">Credits</a>
-                        </h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <iframe src="/static/resume.pdf" width="100%" height="800px">
-                            Your Browser doesn't support PDFs, download it <a href="/static/resume.pdf">here</a>
-                        </iframe>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">
-                        <h4>Resume was created with groff, here is the <a href="/static/resume.txt" download="/static/resume.txt">file</a>. To process it, run</h4>
-                        <h2>groff -t -ms resume.txt -T pdf > resume.pdf && xdg-open resume.pdf</h2>
-                    </td>
-                </tr>
-            </table>
+            <div class="box b100">
+                <h3 style="text-align:center">
+                <a href="index.html">Home</a>
+                <a href="construction.html">About</a>
+                <a href="construction.html">Setup</a>
+                <a href="construction.html">Blog</a>
+                <a href="construction.html">Projects</a>
+                <a href="construction.html">Credits</a>
+                </h3>
+            </div>
+            <div class="box b100">
+                <iframe src="/static/resume.pdf" width="100%" height="800px">
+                    Your Browser doesn't support PDFs, download it <a href="/static/resume.pdf">here</a>
+                </iframe>
+            </div>
+            <div class="box b100">
+                <td style="text-align: center">
+                    <h4>Resume was created with groff, here is the <a href="/static/resume.txt" download="/static/resume.txt">file</a>. To process it, run</h4>
+                    <h2>groff -t -ms resume.txt -T pdf > resume.pdf && xdg-open resume.pdf</h2>
+                </td>
+            </div>
         </div>
     </body>
 </html>

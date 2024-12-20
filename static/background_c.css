@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #e9b392;
+    --background-color: #ac4328;
+}
+
 @keyframes moveBackground {
     0% {
         background-position: 0 0;
@@ -32,20 +37,4 @@
 #bg3 {
     background-image: url('images/bg3c.png');
     animation: moveBackground 30s linear infinite;
-}
-
-#content {
-    border-radius: 3px;
-    border: 2px solid #e9b392;
-    background: #ac4328;
-    color: #e9b392;
-}
-
-#content td {
-    border: 2px solid #e9b392;
-    border-radius: 3px;
-}
-
-#content a {
-    color: #e9b392;
 }
