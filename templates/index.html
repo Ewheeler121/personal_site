@@ -52,12 +52,12 @@
                 <h3>Navigation</h3>
                 <nav>
                     <ul>
-                        <li><a href="construction.html">About</a></li>
-                        <li><a href="construction.html">Setup</a></li>
-                        <li><a href="resume.html">Resume</a></li>
-                        <li><a href="construction.html">Blog</a></li>
-                        <li><a href="construction.html">Projects</a></li>
-                        <li><a href="construction.html">Credits</a></li>
+                        <li><a href="/construction">About</a></li>
+                        <li><a href="/construction">Setup</a></li>
+                        <li><a href="/resume">Resume</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/construction">Projects</a></li>
+                        <li><a href="/construction">Credits</a></li>
                     </ul>
                     <ul>
                         <li><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></li>
@@ -140,8 +140,16 @@
                 </div>
             </div>
             <div class="box b60">
-                <h3>Blog</h3>
-                <p>Yapping</p>
+                <h3>Blogs</h3>
+                <ul>
+                    {{ if .blog }}
+                        {{ range .blog }}
+                        <li><a href="/blog/{{ .Link }}">{{ .Title }}</a></li>
+                        {{ end }}
+                    {{ else }}
+                        <li>No Blogs yet :(</li>
+                    {{ end }}
+                </ul>
             </div>
             <div class="box b40">
                 <h3>Projects</h3>
@@ -149,7 +157,7 @@
             </div>
             <div class="box b100">
                 <h3>Comments</h3>
-                <iframe src="/comment-preview.html#bottom" style="width: 100%; height: 250px"></iframe>
+                <iframe src="/comment-preview#bottom" style="width: 100%; height: 250px"></iframe>
                 <form action="/submit-comment" method="post" id="comment-form">
                     <div class="row">
                         <div>

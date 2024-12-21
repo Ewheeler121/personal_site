@@ -23,10 +23,10 @@ func main() {
     fs := http.FileServer(http.Dir("static"))
     http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-    http.HandleFunc("/index.html", indexPageHandler)
-    http.HandleFunc("/comment-preview.html", commentPreviewHandler)
-    http.HandleFunc("/resume.html", resumePageHandler)
-    http.HandleFunc("/construction.html", constructionPageHandler)
+    http.HandleFunc("/comment-preview", commentPreviewHandler)
+    http.HandleFunc("/resume", resumePageHandler)
+    http.HandleFunc("/construction", constructionPageHandler)
+    http.HandleFunc("/blog/", blogPageHandler)
     http.HandleFunc("/favicon.ico", faviconHandler)
     
     http.HandleFunc("/submit-comment", submitComment)
@@ -50,18 +50,9 @@ func indexPageHandler(w http.ResponseWriter, r *http.Request) {
         "status": getStatus(),
         "hits": n,
         "uniqueHits": u,
+        "blog": getPostPreview(5),
     }
     err := tpl.ExecuteTemplate(w, "index.html", data)
-    if err != nil {
-        http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
-    }
-}
-
-func commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
-    data := map[string]interface{} {
-        "comments": renderComments(),
-    }
-    err := tpl.ExecuteTemplate(w, "comment-preview.html", data)
     if err != nil {
         http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
     }
@@ -98,7 +89,21 @@ func startDatabase() {
     CREATE TABLE IF NOT EXISTS Counter (
         Label TEXT UNIQUE NOT NULL,
         Count INTEGER
-    );`)
+    );
+    CREATE TABLE IF NOT EXISTS Blog (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Title TEXT NOT NULL,
+        Date TEXT NOT NULL,
+        Link TEXT NOT NULL,
+        Description TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS Projects (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Title TEXT NOT NULL,
+        Date TEXT NOT NULL,
+        Description TEXT NOT NULL
+    );
+    `)
     if err != nil {
         panic(err)
     }

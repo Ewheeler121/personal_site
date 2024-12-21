@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ewheeler121's Personal Site</title>
+        <meta name="author" content="Ewheeler121">
+        <meta name="description" content="Ewheeler121 Personal Website">
+		
+        <meta name="keywords" content="">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="preload" href="/static/images/bg1f.png" as="image">
+        <link rel="preload" href="/static/images/bg2f.png" as="image">
+        <link rel="preload" href="/static/images/bd2f.png" as="image">
+
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/background_f.css">
+    </head>
+    <div id="bg1" class="background"></div>
+    <div id="bg2" class="background"></div>
+    <div id="bg3" class="background"></div>
+    <body>
+        <div id="content">
+            <div class="box b100 no-border">
+                <h1 style="text-align: center">Blog</h1>
+            </div>
+            <div class="box b15 no-border">
+                <div class="box b15">
+                    <h3>Navigation</h3>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/construction">About</a></li>
+                            <li><a href="/construction">Setup</a></li>
+                            <li><a href="/resume">Resume</a></li>
+                            <li><a href="/construction">Projects</a></li>
+                            <li><a href="/construction">Credits</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></li>
+                            <li><a href="https://github.com/Ewheeler121" target="_">GitHub</a></li>
+                            <li><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></li>
+                            <li><a href="#">Discord</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="box b15">
+                    <h3>Posts</h3>
+                    <nav>
+                        <ul>
+                            {{ if .preview }}
+                                {{ range .preview }}
+                                <li><a href="/blog/{{ .Link }}">{{ .Title }}</a></li>
+                                {{ end }}
+                            {{ else }}
+                                <li>No Blogs yet :(</li>
+                            {{ end }}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="box b85">
+                {{ if .blog }}
+                <h3>{{ .blog.Title }} - {{ .blog.Date }}</h3>
+                    {{ .blog.Description }}
+                {{ else }}
+                    <h3>No Blog Selected</h3>
+                {{ end }}
+            </div>
+            </div>
+    </body>
+</html>

@@ -97,3 +97,13 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
     
     indexPageHandler(w, r)
 }
+
+func commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
+    data := map[string]interface{} {
+        "comments": renderComments(),
+    }
+    err := tpl.ExecuteTemplate(w, "comment-preview.html", data)
+    if err != nil {
+        http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
+    }
+}
