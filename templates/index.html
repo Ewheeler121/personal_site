@@ -52,18 +52,18 @@
                 <h3>Navigation</h3>
                 <nav>
                     <ul>
-                        <li><a href="/construction">About</a></li>
-                        <li><a href="/construction">Setup</a></li>
-                        <li><a href="/resume">Resume</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                        <li><a href="/construction">Projects</a></li>
-                        <li><a href="/construction">Credits</a></li>
+                        <li><h4><a href="/construction">About</a></h4></li>
+                        <li><h4><a href="/construction">Setup</a></h4></li>
+                        <li><h4><a href="/resume">Resume</a></h4></li>
+                        <li><h4><a href="/blog">Blog</a></h4></li>
+                        <li><h4><a href="/project">Projects</a></h4></li>
+                        <li><h4><a href="/construction">Credits</a></h4></li>
                     </ul>
                     <ul>
-                        <li><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></li>
-                        <li><a href="https://github.com/Ewheeler121" target="_">GitHub</a></li>
-                        <li><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></li>
-                        <li><a href="#">Discord</a></li>
+                        <li><h4><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></h4></li>
+                        <li><h4><a href="https://github.com/Ewheeler121" target="_">GitHub</a></h4></li>
+                        <li><h4><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></h4></li>
+                        <li><h4><a href="#">Discord</a></h4></li>
                     </ul>
                 </nav>
             </div>
@@ -101,7 +101,7 @@
                 <p style="text-align: center">{{ .status }}</p>
             </div>
             <div class="box b33">
-                <a href="https://www.steamidfinder.com/lookup/76561198214490007/" target="_"><img src="https://www.steamidfinder.com/signature/76561198214490007.png" style="height:80px; width:auto; margin: 0 auto;" alt="Ewheeler121 Steam Signature - SteamId for Ewheeler121, real name Evan Wheeler"/></a>
+                <a href="https://www.steamidfinder.com/lookup/76561198214490007/" target="_"><img src="https://www.steamidfinder.com/signature/76561198214490007.png" style="height:80px; width:auto; margin: 0 auto;" alt="Ewheeler121 Steam Signature"/></a>
             </div>
             <div class="box b33">
                 <h4 style="text-align: center">Hit-Counter</h4>
@@ -153,7 +153,15 @@
             </div>
             <div class="box b40">
                 <h3>Projects</h3>
-                <p>Professional Yapping</p>
+                <ul>
+                    {{ if .project }}
+                        {{ range .project }}
+                        <li><a href="/project/{{ .Link }}">{{ .Title }}</a></li>
+                        {{ end }}
+                    {{ else }}
+                        <li>No Projects yet :(</li>
+                    {{ end }}
+                </ul>
             </div>
             <div class="box b100">
                 <h3>Comments</h3>

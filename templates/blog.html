@@ -12,7 +12,7 @@
         
         <link rel="preload" href="/static/images/bg1f.png" as="image">
         <link rel="preload" href="/static/images/bg2f.png" as="image">
-        <link rel="preload" href="/static/images/bd2f.png" as="image">
+        <link rel="preload" href="/static/images/bd3f.png" as="image">
 
         <link rel="stylesheet" href="/static/style.css">
         <link rel="stylesheet" href="/static/background_f.css">
@@ -26,32 +26,32 @@
                 <h1 style="text-align: center">Blog</h1>
             </div>
             <div class="box b15 no-border">
-                <div class="box b15">
+                <div class="box b100">
                     <h3>Navigation</h3>
                     <nav>
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/construction">About</a></li>
-                            <li><a href="/construction">Setup</a></li>
-                            <li><a href="/resume">Resume</a></li>
-                            <li><a href="/construction">Projects</a></li>
-                            <li><a href="/construction">Credits</a></li>
+                            <li><h4><a href="/">Home</a></h4></li>
+                            <li><h4><a href="/construction">About</a></h4></li>
+                            <li><h4><a href="/construction">Setup</a></h4></li>
+                            <li><h4><a href="/resume">Resume</a></h4></li>
+                            <li><h4><a href="/project">Projects</a></h4></li>
+                            <li><h4><a href="/construction">Credits</a></h4></li>
                         </ul>
                         <ul>
-                            <li><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></li>
-                            <li><a href="https://github.com/Ewheeler121" target="_">GitHub</a></li>
-                            <li><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></li>
-                            <li><a href="#">Discord</a></li>
+                            <li><h4><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></h4></li>
+                            <li><h4><a href="https://github.com/Ewheeler121" target="_">GitHub</a></h4></li>
+                            <li><h4><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></h4></li>
+                            <li><h4><a href="#">Discord</a></h4></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="box b15">
+                <div class="box b100">
                     <h3>Posts</h3>
                     <nav>
                         <ul>
                             {{ if .preview }}
                                 {{ range .preview }}
-                                <li><a href="/blog/{{ .Link }}">{{ .Title }}</a></li>
+                                <li><h4><a href="/blog/{{ .Link }}">{{ .Title }}</a></h4></li>
                                 {{ end }}
                             {{ else }}
                                 <li>No Blogs yet :(</li>
@@ -62,10 +62,10 @@
             </div>
             <div class="box b85">
                 {{ if .blog }}
-                <h3>{{ .blog.Title }} - {{ .blog.Date }}</h3>
+                <h2>{{ .blog.Title }} - {{ .blog.Date }}</h2>
                     {{ .blog.Description }}
                 {{ else }}
-                    <h3>No Blog Selected</h3>
+                    <h2>No Blog Selected</h2>
                 {{ end }}
             </div>
             </div>

@@ -27,6 +27,7 @@ func main() {
     http.HandleFunc("/resume", resumePageHandler)
     http.HandleFunc("/construction", constructionPageHandler)
     http.HandleFunc("/blog/", blogPageHandler)
+    http.HandleFunc("/project/", projectPageHandler)
     http.HandleFunc("/favicon.ico", faviconHandler)
     
     http.HandleFunc("/submit-comment", submitComment)
@@ -45,12 +46,18 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func indexPageHandler(w http.ResponseWriter, r *http.Request) {
+    if r.URL.Path[len("/"):] != "" {
+        http.Error(w, "Page Not Found", http.StatusNotFound)
+        return
+    }
+
     n, u := getHitCounter(w, r)
     data := map[string]interface{} {
         "status": getStatus(),
         "hits": n,
         "uniqueHits": u,
-        "blog": getPostPreview(5),
+        "blog": getBlogPreview(5),
+        "project": getProjectPreview(5),
     }
     err := tpl.ExecuteTemplate(w, "index.html", data)
     if err != nil {
@@ -97,10 +104,11 @@ func startDatabase() {
         Link TEXT NOT NULL,
         Description TEXT NOT NULL
     );
-    CREATE TABLE IF NOT EXISTS Projects (
+    CREATE TABLE IF NOT EXISTS Project (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         Title TEXT NOT NULL,
         Date TEXT NOT NULL,
+        Link TEXT NOT NULL,
         Description TEXT NOT NULL
     );
     `)

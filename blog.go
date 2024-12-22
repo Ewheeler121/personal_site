@@ -15,7 +15,7 @@ type Post struct {
     Description template.HTML
 }
 
-func getPostPreview(limit int) []Post {
+func getBlogPreview(limit int) []Post {
     var posts []Post
     rows, err := db.Query(`SELECT id, Title, Link FROM Blog LIMIT ?;`, limit)
     for rows.Next() {
@@ -42,7 +42,7 @@ func getBlog(link string) (Post, error) {
 
 func blogPageHandler(w http.ResponseWriter, r *http.Request) {
     data := map[string]interface{} {
-        "preview": getPostPreview(-1),
+        "preview": getBlogPreview(-1),
     }
     blog, err := getBlog(r.URL.Path[len("/blog/"):])
     if err == nil {
