@@ -111,7 +111,7 @@ a distribution of
 .B Linux . 
 The Back-End is written in
 .B GO
-using the libraries like
+using libraries for 
 .B Sqlite3 .
 The Front-End is written with 
 .B HTML ,
