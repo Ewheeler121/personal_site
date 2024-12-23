@@ -112,7 +112,8 @@ a distribution of
 The Back-End is written in
 .B GO
 using libraries for 
-.B Sqlite3 .
+.B Sqlite3 
+and the Profanity Filter.
 The Front-End is written with 
 .B HTML ,
 .B CSS ,
