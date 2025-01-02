@@ -46,7 +46,7 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func indexPageHandler(w http.ResponseWriter, r *http.Request) {
-    if r.URL.Path[len("/"):] != "" {
+    if r.URL.Path[len("/"):] != "" && r.URL.Path[len("/"):] != "submit-comment" {
         http.Error(w, "Page Not Found", http.StatusNotFound)
         return
     }
