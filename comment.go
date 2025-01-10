@@ -88,6 +88,12 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
         return
     }
     
+    //extra rules, no impersonators
+    if c.User == "ewheeler121" && c.Site == "ewheeler121.xyz" {
+        http.Error(w, "Invalid Comment", http.StatusInternalServerError)
+        return
+    }
+
     Mu.Lock()
     defer Mu.Unlock()
     _, err = db.Exec("INSERT INTO Comment (Username, Site, Comment) VALUES (?, ?, ?)", goaway.Censor(c.User), goaway.Censor(c.Site), goaway.Censor(c.Comment))
@@ -95,7 +101,7 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
     
-    indexPageHandler(w, r)
+    http.Redirect(w, r, "/#comment-form", http.StatusFound)
 }
 
 func commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
