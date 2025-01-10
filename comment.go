@@ -1,13 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
 	"net/url"
 	"strings"
 
-    "github.com/TwiN/go-away"
+	"github.com/TwiN/go-away"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -22,7 +23,7 @@ func renderComments() template.HTML {
     var comments []Comment
     rows, err := db.Query("SELECT Username, Site, Comment FROM (SELECT * FROM Comment ORDER BY id DESC LIMIT 25) AS row ORDER BY ID ASC")
     if err != nil {
-        return template.HTML("<p>ERROR</p>")
+        return template.HTML("<h1>ERROR: database returned NULL</h1>")
     }
 
     for rows.Next() {
@@ -52,7 +53,7 @@ func renderComments() template.HTML {
     return template.HTML(builder.String())
 }
 
-func normalizeURL(u string) (string, error) {
+func formatURL(u string) (string, error) {
     if u == "" {
         return "", nil
     }
@@ -68,8 +69,12 @@ func normalizeURL(u string) (string, error) {
 
 	host := parsedURL.Hostname()
 	if host == "" {
-		return "", err
+		return "", errors.New("Invalid URL")
 	}
+
+    if !strings.Contains(host, ".") || len(strings.Split(host, ".")) < 2 {
+		return "", errors.New("Invalid URL")
+    }
 
 	return host, nil
 }
@@ -80,11 +85,15 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
 
     r.ParseMultipartForm(10 << 20)
     c.User = r.Form.Get("username")
-    c.Site, err = normalizeURL(r.Form.Get("website"))
+    c.Site, err = formatURL(r.Form.Get("website"))
     c.Comment = r.Form.Get("comment")
     
-    if err != nil || c.User == "" || c.Comment == "" {
-        http.Error(w, "Invalid Comment", http.StatusInternalServerError)
+    if err != nil || c.User == "" || c.Comment == "" || goaway.NewProfanityDetector().IsProfane(c.User + "@" + c.Site) {
+        if err == nil {
+            http.Error(w, "Invalid Comment", http.StatusInternalServerError)
+        } else {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
         return
     }
     
