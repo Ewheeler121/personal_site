@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'BrownBagLunch';
+    src: url('/static/BrownBagLunch.ttf') format('truetype');
+}
+
+html {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url('/static/mathclass_day_summer.png');
+}
+
+body {
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.emily-body {
+    position: absolute;
+    transform: translateY(-1%) translateX(20%);
+    right: 10px;
+    height: 100vh;
+    width: auto;
+}
+
+.emily-nek {
+    position: fixed;
+    transform: translateY(-2%) translateX(-20%);
+    height: 75vh;
+    width: auto;
+}
+
+.notebook {
+    margin: 0 auto;
+    width: 800px;
+    min-height: 80vh;
+    padding: 55px;
+    background: repeating-linear-gradient(
+    white 0px,
+    white 45px,
+    #add8e6 25px,
+    white 50px
+    ); 
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.notebook::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 2px;
+    height: 100%;
+    background-color: red;
+}
+
+.spiral {
+    position: absolute;
+    left: 15px;
+    top: 10%;
+    width: 12px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.spiral div {
+    width: 12px;
+    height: 12px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+h1 {
+    font-family: 'BrownBagLunch', monospace;
+    text-align: center;
+    margin: 0;
+    font-size: 7rem;
+    font-weight: normal;
+    color: #2e2e2e;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    filter: contrast(90%) blur(0.3px);
+}
+
+p {
+    font-family: 'BrownBagLunch', serif;
+    margin: 0;
+    color: #3a3a3a;
+    text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
+    filter: contrast(85%) blur(0.3px);
+    line-height: 1.6;
+    font-size: 2rem;
+    font-weight: 100;
+}

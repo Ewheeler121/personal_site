@@ -1,13 +1,14 @@
 package main
 
 import (
-    "database/sql"
-    "fmt"
-    "html/template"
-    "net/http"
-    "sync"
+	"crypto/tls"
+	"database/sql"
+	"fmt"
+	"html/template"
+	"net/http"
+	"sync"
 
-    _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var tpl *template.Template
@@ -15,27 +16,70 @@ var db *sql.DB
 var Mu sync.Mutex
 
 func main() {
+    personalMux := http.NewServeMux()
+    snootMux := http.NewServeMux()
+    
+    tpl = template.Must(template.ParseGlob("templates/*.html"))
+
+    personalMux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+    snootMux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static_snoot"))))
+
+    personalMux.HandleFunc("/comment-preview", commentPreviewHandler)
+    personalMux.HandleFunc("/resume", resumePageHandler)
+    personalMux.HandleFunc("/construction", constructionPageHandler)
+    personalMux.HandleFunc("/blog/", blogPageHandler)
+    personalMux.HandleFunc("/project/", projectPageHandler)
+    personalMux.HandleFunc("/favicon.ico", faviconHandler)
+    personalMux.HandleFunc("/submit-comment", submitComment)
+    personalMux.HandleFunc("/", indexPageHandler)
+    
+    snootMux.HandleFunc("/", snootIndexHandler)
+    snootMux.HandleFunc("/favicon.ico", snootFaviconHandler)
+    
     startDatabase()
     defer db.Close()
 
-    tpl = template.Must(template.ParseGlob("templates/*.html"))
+    personalCert, err := tls.LoadX509KeyPair("domain.cert.pem", "private.key.pem")
+    if err != nil {
+        panic(err.Error())
+    }
+    snootCert, err := tls.LoadX509KeyPair("snoot.domain.cert.pem", "snoot.private.key.pem")
+    if err != nil {
+        panic(err.Error())
+    }
 
-    fs := http.FileServer(http.Dir("static"))
-    http.Handle("/static/", http.StripPrefix("/static/", fs))
+    certMap := map[string]*tls.Certificate {
+        "ewheeler121.xyz": &personalCert,
+        "devlog.pink": &snootCert,
+        "localhost": &personalCert,
+    }
 
-    http.HandleFunc("/comment-preview", commentPreviewHandler)
-    http.HandleFunc("/resume", resumePageHandler)
-    http.HandleFunc("/construction", constructionPageHandler)
-    http.HandleFunc("/blog/", blogPageHandler)
-    http.HandleFunc("/project/", projectPageHandler)
-    http.HandleFunc("/favicon.ico", faviconHandler)
-    
-    http.HandleFunc("/submit-comment", submitComment)
+    tlsConfig := &tls.Config {
+        GetCertificate: func(chi *tls.ClientHelloInfo) (*tls.Certificate, error) {
+            if cert, ok := certMap[chi.ServerName]; ok {
+                return cert, nil
+            }
+            return nil, fmt.Errorf("No Certificate Found for %s", chi.ServerName)
+        },
+    }
 
-    http.HandleFunc("/", indexPageHandler)
+    server := &http.Server {
+        Addr: ":443",
+        TLSConfig: tlsConfig,
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        switch r.Host {
+        case "ewheeler121.xyz":
+            personalMux.ServeHTTP(w, r)
+        case "devlog.pink":
+            snootMux.ServeHTTP(w, r)
+        default:
+            snootMux.ServeHTTP(w, r)
+        }
+    })
     
-    
-    err := http.ListenAndServeTLS(":443", "domain.cert.pem", "private.key.pem", nil)
+    err = server.ListenAndServeTLS("", "")
     if err != nil {
         fmt.Println("ERROR: could not start server: ", err)
     }
