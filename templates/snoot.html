@@ -14,9 +14,32 @@
         <meta property="og:url" content="https://devlog.pink">
         <meta property="og:type" content="website">
     </head>
+    <script>
+        window.onload = () => {
+            const bottomImage = document.querySelector(".emily-body"); // Select by class
+            const imageHeight = bottomImage.height; // Get the height of the image
+
+            // Function to create a new image and position it above the previous one
+            const createImageAbove = (yPosition) => {
+                const newImage = document.createElement("img");
+                newImage.src = "/static/infinite_neck.png"; // Replace with the path to the new image
+                newImage.className = "image";
+                newImage.style.top = yPosition + "px"; // Position above the previous image
+                document.body.appendChild(newImage);
+                return newImage;
+            };
+
+            // Stack images above the initial image until the top of the page
+            let currentYPosition = bottomImage.offsetTop - imageHeight; // Starting above the bottom image
+            while (currentYPosition > 0) {
+                const newImage = createImageAbove(currentYPosition);
+                currentYPosition -= newImage.height; // Adjust the Y position for the next image
+            }
+        };
+    </script>
     <body>
-        <img src="/static/emily_body_normal_showdrawing.png" class="emily-body">
         <img src="/static/emily_neck_normal.png" class="emily-nek">
+        <img src="/static/emily_body_normal_showdrawing.png" class="emily-body">
         <div class="notebook">
             <div class="spiral">
                 <div></div> <div></div> <div></div> <div></div> <div></div> 

@@ -12,7 +12,6 @@ html {
 }
 
 body {
-    height: 100vh;
     position: relative;
     overflow-x: hidden;
     margin: 0;
@@ -20,17 +19,18 @@ body {
 
 .emily-body {
     position: absolute;
-    transform: translateY(-1%) translateX(20%);
-    right: 10px;
-    height: 100vh;
-    width: auto;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: 35vw;
+    transform: translateX(10%);
 }
 
 .emily-nek {
     position: fixed;
     transform: translateY(-2%) translateX(-20%);
-    height: 75vh;
-    width: auto;
+    height: auto;
+    width: 20vw;
 }
 
 .notebook {
