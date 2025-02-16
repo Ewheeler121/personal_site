@@ -14,29 +14,6 @@
         <meta property="og:url" content="https://devlog.pink">
         <meta property="og:type" content="website">
     </head>
-    <script>
-        window.onload = () => {
-            const bottomImage = document.querySelector(".emily-body"); // Select by class
-            const imageHeight = bottomImage.height; // Get the height of the image
-
-            // Function to create a new image and position it above the previous one
-            const createImageAbove = (yPosition) => {
-                const newImage = document.createElement("img");
-                newImage.src = "/static/infinite_neck.png"; // Replace with the path to the new image
-                newImage.className = "image";
-                newImage.style.top = yPosition + "px"; // Position above the previous image
-                document.body.appendChild(newImage);
-                return newImage;
-            };
-
-            // Stack images above the initial image until the top of the page
-            let currentYPosition = bottomImage.offsetTop - imageHeight; // Starting above the bottom image
-            while (currentYPosition > 0) {
-                const newImage = createImageAbove(currentYPosition);
-                currentYPosition -= newImage.height; // Adjust the Y position for the next image
-            }
-        };
-    </script>
     <body>
         <img src="/static/emily_neck_normal.png" class="emily-nek">
         <img src="/static/emily_body_normal_showdrawing.png" class="emily-body">
@@ -53,5 +30,86 @@
             <p>If there are millions of Emily worshipper, I am one of them. If their is one Emily fan, thats me. 
             If there are no Emily fans, that means that humanity is dead for my love is ETERNAL!!!</p>
             <img src="/static/emilywojak.png" style="display: block; margin: 0 auto; width: 90%">
+            <div class="container">
+                <img id="mainImage" src="/static/face.jpg" alt="Image" style="width: 100%"/>
+                <div class="eye" id="eye1">
+                    <div class="pupil" id="pupil1"></div>
+                </div>
+                <div class="eye" id="eye2">
+                    <div class="pupil" id="pupil2"></div>
+                </div>
+            </div>
         </div>
+        <script>
+            function positionEyes() {
+                const img = document.getElementById("mainImage");
+                const eye1 = document.getElementById("eye1");
+                const eye2 = document.getElementById("eye2");
+                const rect = img.getBoundingClientRect();
+
+                const eyeSize = rect.width * 0.2;
+                const pupilSize = eyeSize * 0.55;
+
+                const eyePositionTop = rect.height * 0.44;
+                const eye1PositionLeft = rect.width * 0.22;
+                const eye2PositionLeft = rect.width * 0.58;
+
+                eye1.style.width = `${eyeSize}px`;
+                eye1.style.height = `${eyeSize}px`;
+                eye1.style.top = `${eyePositionTop}px`;
+                eye1.style.left = `${eye1PositionLeft}px`;
+
+                eye2.style.width = `${eyeSize}px`;
+                eye2.style.height = `${eyeSize}px`;
+                eye2.style.top = `${eyePositionTop}px`;
+                eye2.style.left = `${eye2PositionLeft}px`;
+
+                document.querySelectorAll(".pupil").forEach(pupil => {
+                    pupil.style.width = `${pupilSize}px`;
+                    pupil.style.height = `${pupilSize}px`;
+                });
+            }
+
+            window.onload = positionEyes;
+            window.addEventListener("resize", positionEyes);
+
+            document.addEventListener("mousemove", (event) => {
+                const eye1 = document.getElementById("eye1");
+                const eye2 = document.getElementById("eye2");
+                const pupil1 = document.getElementById("pupil1");
+                const pupil2 = document.getElementById("pupil2");
+
+                const imgRect = document.getElementById("mainImage").getBoundingClientRect();
+                const rect1 = eye1.getBoundingClientRect();
+                const rect2 = eye2.getBoundingClientRect();
+
+                const eyeCenterX = (rect1.left + rect1.width / 2 + rect2.left + rect2.width / 2) / 2 - imgRect.left;
+                const eyeCenterY = (rect1.top + rect1.height / 2 + rect2.top + rect2.height / 2) / 2 - imgRect.top;
+
+                const mouseX = event.clientX - imgRect.left;
+                const mouseY = event.clientY - imgRect.top;
+
+                const deltaX = mouseX - eyeCenterX;
+                const deltaY = mouseY - eyeCenterY;
+
+                const eyeRadius = rect1.width / 2;
+                const maxMove = eyeRadius - (rect1.width * 0.3);
+
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                let moveX = deltaX;
+                let moveY = deltaY;
+
+                if (distance > eyeRadius) {
+                    moveX = (moveX / distance) * maxMove;
+                    moveY = (moveY / distance) * maxMove;
+                } else {
+                    moveX = (moveX / eyeRadius) * maxMove;
+                    moveY = (moveY / eyeRadius) * maxMove;
+                }
+
+                pupil1.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                pupil2.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        </script>
 </html>

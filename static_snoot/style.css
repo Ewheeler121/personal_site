@@ -100,3 +100,30 @@ p {
     font-size: 2rem;
     font-weight: 100;
 }
+
+.container {
+    width: 15vw;
+    margin: auto;
+    position: fixed;
+    left: 10vw;
+    bottom: 0;
+    display: inline-block;
+}
+
+.eye {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.pupil {
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    transition: transform 0.1s ease-out;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
