@@ -7,6 +7,8 @@ import (
 	"html/template"
 	"net/http"
 	"sync"
+    "path/filepath"
+    "strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -16,11 +18,12 @@ var db *sql.DB
 var Mu sync.Mutex
 
 func main() {
+    gameMux := http.NewServeMux()
     personalMux := http.NewServeMux()
     snootMux := http.NewServeMux()
     
     tpl = template.Must(template.ParseGlob("templates/*.html"))
-
+    
     personalMux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
     snootMux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static_snoot"))))
 
@@ -35,6 +38,8 @@ func main() {
     
     snootMux.HandleFunc("/", snootIndexHandler)
     snootMux.HandleFunc("/favicon.ico", snootFaviconHandler)
+
+    gameMux.HandleFunc("/", serveStatic)
     
     startDatabase()
     defer db.Close()
@@ -50,6 +55,7 @@ func main() {
 
     certMap := map[string]*tls.Certificate {
         "ewheeler121.xyz": &personalCert,
+        "game.ewheeler121.xyz": &personalCert,
         "devlog.pink": &snootCert,
         "localhost": &personalCert,
     }
@@ -70,12 +76,14 @@ func main() {
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         switch r.Host {
+        case "game.ewheeler121.xyz":
+            gameMux.ServeHTTP(w, r)
         case "ewheeler121.xyz":
             personalMux.ServeHTTP(w, r)
         case "devlog.pink":
             snootMux.ServeHTTP(w, r)
         default:
-            snootMux.ServeHTTP(w, r)
+            gameMux.ServeHTTP(w, r)
         }
     })
     
@@ -168,4 +176,19 @@ func startDatabase() {
     if err != nil {
         panic(err)
     }
+}
+
+func serveStatic(w http.ResponseWriter, r *http.Request) {
+	ext := filepath.Ext(r.URL.Path)
+	if strings.HasSuffix(r.URL.Path, ".br") {
+		w.Header().Set("Content-Encoding", "br")
+		if ext == ".js.br" {
+			w.Header().Set("Content-Type", "application/javascript")
+		} else if ext == ".wasm.br" {
+			w.Header().Set("Content-Type", "application/wasm")
+		} else if ext == ".data.br" {
+			w.Header().Set("Content-Type", "application/wasm")
+		}
+	}
+	http.ServeFile(w, r, "game/"+r.URL.Path)
 }
