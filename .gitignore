@@ -1,4 +1,4 @@
 personal-site
-certs/*
+*.pem
 *.db
 *.vs
