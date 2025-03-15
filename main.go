@@ -83,7 +83,8 @@ func main() {
         case "devlog.pink":
             emilybooruMux.ServeHTTP(w, r)
         case "game.devlog.pink":
-            gameMux.ServeHTTP(w, r)
+            emilybooruMux.ServeHTTP(w, r)
+            //gameMux.ServeHTTP(w, r)
         default:
             //personalMux.ServeHTTP(w, r)
             emilybooruMux.ServeHTTP(w, r)
