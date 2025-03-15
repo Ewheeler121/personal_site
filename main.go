@@ -21,6 +21,7 @@ func main() {
     var err error
     personalMux := http.NewServeMux()
     emilybooruMux := http.NewServeMux()
+    gameMux := http.NewServeMux()
 
     tpl = template.Must(template.ParseGlob("templates/*.html"))
     if tpl == nil {
@@ -37,10 +38,12 @@ func main() {
     //creates tables
     personal_startDB(db)
     emily_startDB(db)
+    game_startDB(db)
 
     //hook handlers
     personal_hookHandles(personalMux)
     emily_hookHandles(emilybooruMux)
+    game_hookHandles(gameMux)
     
     //load certs
     personalCert, err := tls.LoadX509KeyPair("certs/domain.cert.pem", "certs/private.key.pem")
@@ -55,6 +58,7 @@ func main() {
     certMap := map[string]*tls.Certificate {
         "ewheeler121.xyz": &personalCert,
         "devlog.pink": &snootCert,
+        "game.devlog.pink": &snootCert,
         //use this for testing
         "localhost": &snootCert,
         //"localhost": &personalCert,
@@ -78,10 +82,12 @@ func main() {
             personalMux.ServeHTTP(w, r)
         case "devlog.pink":
             emilybooruMux.ServeHTTP(w, r)
+        case "game.devlog.pink":
+            gameMux.ServeHTTP(w, r)
         default:
-            //use this for testing
-            emilybooruMux.ServeHTTP(w, r)
             //personalMux.ServeHTTP(w, r)
+            emilybooruMux.ServeHTTP(w, r)
+            //gameMux.ServeHTTP(w, r)
         }
     })
     
