@@ -79,7 +79,7 @@ func formatURL(u string) (string, error) {
 	return host, nil
 }
 
-func submitComment(w http.ResponseWriter, r *http.Request) {
+func personal_submitComment(w http.ResponseWriter, r *http.Request) {
     var c Comment
     var err error
 
@@ -109,16 +109,17 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
-    
+
     http.Redirect(w, r, "/#comment-form", http.StatusFound)
 }
 
-func commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
-    data := map[string]interface{} {
+func personal_commentPreviewHandler(w http.ResponseWriter, r *http.Request) {
+    data := tplData {
         "comments": renderComments(),
     }
-    err := tpl.ExecuteTemplate(w, "comment-preview.html", data)
+    err := tpl.ExecuteTemplate(w, "personal_comment-preview.html", data)
     if err != nil {
         http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
     }
 }
+

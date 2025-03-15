@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #cbdbfc;
-    --background-color: #306082;
+    --primary-color: #cb75b6;
+    --background-color: #74448c;
 }
 
 @keyframes moveBackground {
@@ -25,16 +25,16 @@
 }
 
 #bg1 {
-    background-image: url('images/bg1m.png');
+    background-image: url('/images/bg1f.png');
     animation: moveBackground 60s linear infinite;
 }
 
 #bg2 {
-    background-image: url('images/bg2m.png');
+    background-image: url('/images/bg2f.png');
     animation: moveBackground 40s linear infinite;
 }
 
 #bg3 {
-    background-image: url('images/bg3m.png');
+    background-image: url('/images/bg3f.png');
     animation: moveBackground 30s linear infinite;
 }

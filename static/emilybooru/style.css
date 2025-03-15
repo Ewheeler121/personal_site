@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'BrownBagLunch';
-    src: url('/static/BrownBagLunch.ttf') format('truetype');
+    src: url('/BrownBagLunch.ttf') format('truetype');
 }
 
 html {
@@ -8,7 +8,7 @@ html {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-image: url('/static/mathclass_day_summer.png');
+    background-image: url('/images/mathclass_day_summer.png');
 }
 
 body {

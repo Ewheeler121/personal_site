@@ -1,6 +1,4 @@
-private.key.pem
-domain.cert.pem
-snoot.private.key.pem
-snoot.domain.cert.pem
-database.db
-personal_site
+personal-site
+certs/*
+*.db
+*.vs

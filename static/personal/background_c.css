@@ -25,16 +25,16 @@
 }
 
 #bg1 {
-    background-image: url('images/bg1c.png');
+    background-image: url('/images/bg1c.png');
     animation: moveBackground 60s linear infinite;
 }
 
 #bg2 {
-    background-image: url('images/bg2c.png');
+    background-image: url('/images/bg2c.png');
     animation: moveBackground 40s linear infinite;
 }
 
 #bg3 {
-    background-image: url('images/bg3c.png');
+    background-image: url('/images/bg3c.png');
     animation: moveBackground 30s linear infinite;
 }
