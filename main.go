@@ -22,6 +22,7 @@ func main() {
     personalMux := http.NewServeMux()
     emilybooruMux := http.NewServeMux()
     gameMux := http.NewServeMux()
+    emilyGameMux := http.NewServeMux()
 
     tpl = template.Must(template.ParseGlob("templates/*.html"))
     if tpl == nil {
@@ -38,11 +39,13 @@ func main() {
     //creates tables
     personal_startDB(db)
     emily_startDB(db)
+    emilyGame_startDB(db)
     game_startDB(db)
 
     //hook handlers
     personal_hookHandles(personalMux)
     emily_hookHandles(emilybooruMux)
+    emilyGame_hookHandles(emilyGameMux)
     game_hookHandles(gameMux)
     
     //load certs
@@ -57,11 +60,12 @@ func main() {
     //certMap for config
     certMap := map[string]*tls.Certificate {
         "ewheeler121.xyz": &personalCert,
+        "game.ewheeler121.xyz": &personalCert,
         "devlog.pink": &snootCert,
         "game.devlog.pink": &snootCert,
         //use this for testing
-        "localhost": &snootCert,
-        //"localhost": &personalCert,
+        //"localhost": &snootCert,
+        "localhost": &personalCert,
     }
     tlsConfig := &tls.Config {
         GetCertificate: func(chi *tls.ClientHelloInfo) (*tls.Certificate, error) {
@@ -80,6 +84,8 @@ func main() {
         switch r.Host {
         case "ewheeler121.xyz":
             personalMux.ServeHTTP(w, r)
+        case "game.ewheeler121.xyz":
+            gameMux.ServeHTTP(w, r)
         case "devlog.pink":
             emilybooruMux.ServeHTTP(w, r)
         case "game.devlog.pink":
@@ -87,8 +93,9 @@ func main() {
             //gameMux.ServeHTTP(w, r)
         default:
             //personalMux.ServeHTTP(w, r)
-            emilybooruMux.ServeHTTP(w, r)
-            //gameMux.ServeHTTP(w, r)
+            //emilybooruMux.ServeHTTP(w, r)
+            //emilyGameMux.ServeHTTP(w, r)
+            gameMux.ServeHTTP(w, r)
         }
     })
     
