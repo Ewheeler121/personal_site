@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Side Scroller</title>
+    <title>Unity WebGL Player | Tower Defense</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Side Scroller</div>
+        <div id="unity-build-title">Tower Defense</div>
       </div>
     </div>
     <script>
@@ -57,15 +57,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/webgl.loader.js";
+      var loaderUrl = buildUrl + "/webbuild.loader.js";
       var config = {
-        dataUrl: buildUrl + "/webgl.data.br",
-        frameworkUrl: buildUrl + "/webgl.framework.js.br",
-        codeUrl: buildUrl + "/webgl.wasm.br",
+        dataUrl: buildUrl + "/webbuild.data.gz",
+        frameworkUrl: buildUrl + "/webbuild.framework.js.gz",
+        codeUrl: buildUrl + "/webbuild.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-        productName: "Side Scroller",
-        productVersion: "1.0",
+        productName: "Tower Defense",
+        productVersion: "0.1",
         showBanner: unityShowBanner,
       };
 
