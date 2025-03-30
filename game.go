@@ -25,8 +25,15 @@ func game_indexHandler(w http.ResponseWriter, r *http.Request) {
         if strings.HasSuffix(filePath, ".br") {
             w.Header().Set("Content-Encoding", "br")
         }
+
+        if strings.HasSuffix(filePath, ".gz") {
+            w.Header().Set("Content-Encoding", "gzip")
+        }
     
         if strings.HasSuffix(filePath, ".wasm.br") {
+            w.Header().Set("Content-Type", "application/wasm")
+        }
+        if strings.HasSuffix(filePath, ".wasm.gz") {
             w.Header().Set("Content-Type", "application/wasm")
         }
 
