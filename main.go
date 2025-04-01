@@ -98,7 +98,7 @@ func main() {
             gameMux.ServeHTTP(w, r)
         }
     })
-    
+
     err = server.ListenAndServeTLS("", "")
     if err != nil {
         fmt.Println("ERROR: could not start server: ", err)
