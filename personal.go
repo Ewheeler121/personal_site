@@ -127,7 +127,7 @@ func personal_indexHandler(w http.ResponseWriter, r *http.Request) {
     }
     projects := getProjectPreview(5)
     if projects != nil {
-        data["project"] = blogs
+        data["project"] = projects
     }
 
     err := tpl.ExecuteTemplate(w, "personal_index.html", data)
