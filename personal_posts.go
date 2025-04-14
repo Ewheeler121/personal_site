@@ -1,11 +1,43 @@
 package main
 
 import (
+	"bytes"
+	"encoding/xml"
+	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+// RSS feed structs
+type RSS struct {
+	XMLName xml.Name `xml:"rss"`
+	Version string   `xml:"version,attr"`
+	Channel Channel  `xml:"channel"`
+}
+
+type Channel struct {
+	Title         string `xml:"title"`
+	Link          string `xml:"link"`
+	Description   string `xml:"description"`
+	Language      string `xml:"language"`
+	LastBuildDate string `xml:"lastBuildDate"`
+	Items         []Item `xml:"item"`
+}
+
+type CDATA struct {
+	Value string `xml:",cdata"`
+}
+
+type Item struct {
+	Title       CDATA  `xml:"title"`
+	Link        string `xml:"link"`
+	GUID        string `xml:"guid"`
+	PubDate     string `xml:"pubDate"`
+	Description CDATA `xml:"description"`
+}
 
 type Post struct {
     Id int
@@ -104,3 +136,72 @@ func personal_projectPageHandler(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func personal_blogRSSFeed(posts []Post) ([]byte, error) {
+	const layout = "Jan 2 2006"
+	now := time.Now().Format(time.RFC1123Z)
+
+	var items []Item
+	for _, p := range posts {
+		t, err := time.Parse(layout, p.Date)
+		if err != nil {
+			return nil, fmt.Errorf("invalid date %q: %w", p.Date, err)
+		}
+		items = append(items, Item{
+			Title:       CDATA{p.Title},
+			Link:        fmt.Sprintf("https://ewheeler121.xyz/blog/%s", p.Link),
+			GUID:        fmt.Sprintf("https://ewheeler121.xyz/blog/%s", p.Link),
+			PubDate:     t.Format(time.RFC1123Z),
+			Description: CDATA{string(p.Description)}, // Convert template.HTML to string
+		})
+	}
+
+	rss := RSS{
+		Version: "2.0",
+		Channel: Channel{
+			Title:         "Ewheeler121",
+			Link:          "https://ewheeler121.xyz/blog",
+			Description:   "Random Blog Posts from Ewheeler121",
+			Language:      "en-us",
+			LastBuildDate: now,
+			Items:         items,
+		},
+	}
+
+	buf := &bytes.Buffer{}
+	buf.WriteString(xml.Header)
+	enc := xml.NewEncoder(buf)
+	enc.Indent("", "  ")
+	if err := enc.Encode(rss); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+
+func personal_blogRSSFeedHandler(w http.ResponseWriter, r *http.Request) {
+	rows, err := db.Query(`SELECT Title, Date, Link, Description FROM Blog ORDER BY id DESC`)
+	if err != nil {
+		http.Error(w, "Failed to generate feed", http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+	
+	var posts []Post
+	for rows.Next() {
+		var p Post
+		if err := rows.Scan(&p.Title, &p.Date, &p.Link, &p.Description); err != nil {
+			http.Error(w, "Failed to generate feed", http.StatusInternalServerError)
+			return
+		}
+		posts = append(posts, p)
+	}
+
+	feed, err := personal_blogRSSFeed(posts)
+	if err != nil {
+		http.Error(w, "Failed to generate feed", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/rss+xml; charset=utf-8")
+	w.Write(feed)
+}

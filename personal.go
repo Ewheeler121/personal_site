@@ -17,6 +17,7 @@ func personal_hookHandles(serve *http.ServeMux) {
     serve.HandleFunc("/blog/", personal_blogPageHandler)
     serve.HandleFunc("/project/", personal_projectPageHandler)
     serve.HandleFunc("/submit-comment", personal_submitComment)
+    serve.HandleFunc("/rss", personal_blogRSSFeedHandler)
     serve.HandleFunc("/favicon.ico", personal_faviconHandler)
     serve.HandleFunc("/", personal_indexHandler)
 
