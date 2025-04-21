@@ -151,7 +151,7 @@ func personal_blogRSSFeed(posts []Post) ([]byte, error) {
 			Link:        fmt.Sprintf("https://ewheeler121.xyz/blog/%s", p.Link),
 			GUID:        fmt.Sprintf("https://ewheeler121.xyz/blog/%s", p.Link),
 			PubDate:     t.Format(time.RFC1123Z),
-			Description: CDATA{string(p.Description)}, // Convert template.HTML to string
+			Description: CDATA{string(p.Description)},
 		})
 	}
 
