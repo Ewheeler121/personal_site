@@ -9,6 +9,7 @@ import (
 
 func game_hookHandles(serve *http.ServeMux) {
     serve.HandleFunc("/favicon.ico", game_faviconHandler)
+    serve.HandleFunc("/fps", fps_handler)
     serve.HandleFunc("/", game_indexHandler)
 }
 
@@ -42,6 +43,13 @@ func game_indexHandler(w http.ResponseWriter, r *http.Request) {
     }
 
     err := tpl.ExecuteTemplate(w, "game_index.html", nil)
+    if err != nil {
+        http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
+    }
+}
+
+func fps_handler(w http.ResponseWriter, r *http.Request) {
+    err := tpl.ExecuteTemplate(w, "game_fps.html", nil)
     if err != nil {
         http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
     }
