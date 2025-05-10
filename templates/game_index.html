@@ -30,26 +30,26 @@
     <body>
         <div id="content">
             <div class="box b100 no-border">
-                <h1 style="text-align: center">The Game</h1>
+                <h1 style="text-align: center">DNF Builder</h1>
             </div>
             <div class="box b100 no-border">
                 <div class="box b100" style="height: 500px">
                     <div id="unity-container" class="unity-desktop">
-                        <canvas id="unity-canvas" style="width: 100%"></canvas>
+                        <canvas id="unity-canvas" width=700 height=400 tabindex="-1"></canvas>
                         <div id="unity-loading-bar">
                             <div id="unity-logo"></div>
                             <div id="unity-progress-bar-empty">
                                 <div id="unity-progress-bar-full"></div>
                             </div>
                         </div>
-                        <div id="unity-warning"></div>
+                        <div id="unity-warning"> </div>
                         <div id="unity-footer">
-                            <div id="unity-webgl-logo"></div>
                             <div id="unity-fullscreen-button"></div>
-                            <div id="unity-build-title">Tower Defense</div>
+                            <div id="unity-build-title">Puzzle</div>
                         </div>
                     </div>
                     <script>
+
                         var container = document.querySelector("#unity-container");
                         var canvas = document.querySelector("#unity-canvas");
                         var loadingBar = document.querySelector("#unity-loading-bar");
@@ -82,15 +82,15 @@
                             }
 
                         var buildUrl = "Build";
-                        var loaderUrl = buildUrl + "/webbuild.loader.js";
+                        var loaderUrl = buildUrl + "/puzzle.loader.js";
                         var config = {
-                            dataUrl: buildUrl + "/webbuild.data.gz",
-                            frameworkUrl: buildUrl + "/webbuild.framework.js.gz",
-                            codeUrl: buildUrl + "/webbuild.wasm.gz",
+                            dataUrl: buildUrl + "/puzzle.data.br",
+                            frameworkUrl: buildUrl + "/puzzle.framework.js.br",
+                            codeUrl: buildUrl + "/puzzle.wasm.br",
                             streamingAssetsUrl: "StreamingAssets",
                             companyName: "DefaultCompany",
-                            productName: "Tower Defense",
-                            productVersion: "0.1",
+                            productName: "Puzzle",
+                            productVersion: "1.0",
                             showBanner: unityShowBanner,
                         };
 
@@ -128,8 +128,8 @@
                             } else {
                                 // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-                                canvas.style.width = "720px";
-                                canvas.style.height = "450px";
+                                canvas.style.width = "700px";
+                                canvas.style.height = "400px";
                             }
 
                         loadingBar.style.display = "block";
@@ -155,23 +155,31 @@
                 </div>
                 <div class="box b100">
                     <h1>Controls</h1>
-                    <h2>W, A, S, D to move Camera</h2>
-                    <h2>Click buildable space for options</h2>
-                    <h3>webgl not working? try the windows build</h3>
-                    <a href="/windows_build.zip">download windows build</a>
+                    <br></br>
+                    <h2>Create Mode</h2>
+                    <h3>Left Click to create, Middle Click to delete, Right Click to set Ending</h3>
+                    <br></br>
+                    <h2>Connecting Mode</h2>
+                    <h3>Drag with Left Click to connecting nodes with the type you clicked. Esc to leave connecting mode</h3>
+                    <br></br>
+                    <h2>Running</h2>
+                    <h3>hit the 'r' key to run the dnf from start to finish</h3>
                 </div>
                 <div class="box b100">
                     <h1>Profolio Entry</h1>
-                    <h2>My Role</h2>
-                    <p>I was the Programmer Game for the game.</p>
+                    <h2>Roles</h2>
+                    <p>Programmed the entire Project in C# with the Unity Game Engine. Also design the Puzzles, UI Layout, and Levels.</p>
                     <h2>What did I learn?</h2>
                     <ul>
-                        <li>learned unity's built in mouse functions</li>
-                        <li>learned more about unity's camera perpectives</li>
-                        <li>learned basic path following with waypoints</li>
+                        <li>Learned how to interact between Unity's UI elements and the Scene</li>
+                        <li>Learned how to scale Unity's UI for multiple aspect ratios and resolutions</li>
+                        <li>Learned how to modify camera settings for fancy filtering effects</li>
                     </ul>
                     <h2>What makes this game unique?</h2>
-                    <p>Not much is unique, just a simple tower defense.</p>
+                    <p>The puzzle relys on some of the basics concepts of computer science such as DNF's and Regular expressions.</p>
+                    <img src="puzzle1.png" style="width: 700px">
+                    <img src="puzzle2.png" style="width: 700px">
+                    <img src="puzzle.gif" style="width: 700px">
                 </div>
     </body>
 </html>

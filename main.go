@@ -92,10 +92,10 @@ func main() {
             emilybooruMux.ServeHTTP(w, r)
             //gameMux.ServeHTTP(w, r)
         default:
-            personalMux.ServeHTTP(w, r)
+            //personalMux.ServeHTTP(w, r)
             //emilybooruMux.ServeHTTP(w, r)
             //emilyGameMux.ServeHTTP(w, r)
-            //gameMux.ServeHTTP(w, r)
+            gameMux.ServeHTTP(w, r)
         }
     })
 
