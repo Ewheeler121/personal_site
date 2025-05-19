@@ -1,0 +1,6 @@
+github.com/TwiN/go-away v1.6.15 h1:pm1UvsteYNnOWl4bcbhAXQnebR5UcqfcuCi3kl6LJhE=
+github.com/TwiN/go-away v1.6.15/go.mod h1:cgCIChHZZU7u9QjVuGAf3X95MPoMPuceCwnvj8+JDB0=
+github.com/mattn/go-sqlite3 v1.14.24 h1:tpSp2G2KyMnnQu99ngJ47EIkWVmliIizyZBfPrBWDRM=
+github.com/mattn/go-sqlite3 v1.14.24/go.mod h1:Uh1q+B4BYcTPb+yiD3kU8Ct7aC0hY9fxUwlHK0RXw+Y=
+golang.org/x/text v0.23.0 h1:D71I7dUrlY+VX0gQShAThNGHFxZ13dGLBHQLVl1mJlY=
+golang.org/x/text v0.23.0/go.mod h1:/BLNzu4aZCJ1+kcD0DNRotWKage4q2rGVAg4o22unh4=

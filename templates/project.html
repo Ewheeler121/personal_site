@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ewheeler121's Personal Site</title>
+        <meta name="author" content="Ewheeler121">
+        <meta name="description" content="Ewheeler121 Personal Website">
+		
+        <meta name="keywords" content="">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preload" href="/images/bg1m.png" as="image">
+        <link rel="preload" href="/images/bg2m.png" as="image">
+        <link rel="preload" href="/images/bd2m.png" as="image">
+        
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/background_m.css">
+    </head>
+    <div id="bg1" class="background"></div>
+    <div id="bg2" class="background"></div>
+    <div id="bg3" class="background"></div>
+    <body>
+        <div id="content">
+            <h1 style="text-align: center">Projects</h1>
+            <div class="box b100">
+                <h3 style="text-align:center">
+                <a href="/">Home</a>
+                <a href="/construction">About</a>
+                <a href="/construction">Setup</a>
+                <a href="/resume">Resume</a>
+                <a href="/blog">Blog</a>
+                <a href="/project">Projects</a>
+                <a href="/construction">Credits</a>
+                </h3>
+            </div>
+            <div class="box b100">
+                <h2 style="text-align:center">Index</h2>
+                <h3 style="text-align:center">
+                    {{ if .preview }}
+                    {{ range .preview }}
+                        <a href="/project/{{ .Link }}">{{ .Title }}</a>
+                    {{ end }}
+                    {{ else }}
+                        <p>No Projects yet :(</p>
+                    {{ end }}
+                </h3>
+            </div>
+            <div class="box b100">
+                {{ if .project }}
+                <h2>{{ .project.Title }} - {{ .project.Date }}</h2>
+                    {{ .project.Description }}
+                {{ else }}
+                    <h2>No Project Selected</h2>
+                {{ end }}
+            </div>
+        </div>
+    </body>
+</html>

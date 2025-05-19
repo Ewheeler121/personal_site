@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ewheeler121's Personal Site</title>
+        <meta name="author" content="Ewheeler121">
+        <meta name="description" content="Ewheeler121 Personal Website">
+		
+        <meta name="keywords" content="">
+		<meta name="robots" content="index">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="preload" href="/images/bg1c.png" as="image">
+        <link rel="preload" href="/images/bg2c.png" as="image">
+        <link rel="preload" href="/images/bg3c.png" as="image">
+
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/scroll-div.css">
+        <link rel="stylesheet" href="/background_c.css">
+        <style>
+            input[type="text"], input[type="url"], textarea {
+                font-family: 'VT323';
+            }
+            #comment-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+                margin: 0 auto;
+            }
+            #comment-form .row {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                width: 100%;
+                max-width: 450px;
+            }
+        </style>
+    </head>
+    <div id="bg1" class="background"></div>
+    <div id="bg2" class="background"></div>
+    <div id="bg3" class="background"></div>
+    <body>
+        <div id="content">
+            <div class="box b100 no-border">
+                <h1 style="text-align: center">Welcome Internet Crawlers!!!</h1>
+            </div>
+            <div class="box b15">
+                <h3>Navigation</h3>
+                <nav>
+                    <ul>
+                        <li><h4><a href="/construction">About</a></h4></li>
+                        <li><h4><a href="/construction">Setup</a></h4></li>
+                        <li><h4><a href="/resume">Resume</a></h4></li>
+                        <li><h4><a href="/blog">Blog</a></h4></li>
+                        <li><h4><a href="/project">Projects</a></h4></li>
+                        <li><h4><a href="/construction">Credits</a></h4></li>
+                    </ul>
+                    <ul>
+                        <li><h4><a href="https://www.linkedin.com/in/ewheeler121/" target="_">Linkedin</a></h4></li>
+                        <li><h4><a href="https://github.com/Ewheeler121" target="_">GitHub</a></h4></li>
+                        <li><h4><a href="https://steamcommunity.com/id/Ewheeler121" target="_">Steam</a></h4></li>
+                        <li><h4><a href="#">Discord</a></h4></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="box b85">
+                <table style="width: 100%; border-spacing: 0;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 75%; border: none;  padding: 0 5px">
+                                <h2>Welcome to my Personal Site</h2>
+                                <p>
+                                I created this website after my enlightenment hearing the words of <a href="https://lukesmith.xyz" target="_">Luke Smith</a> and 
+                                reminiscing on the internet of old.
+                                </p>
+                                <p>
+                                This website has been created using no front-end frameworks or bloated server software. 
+                                Its using GO for all the backend rendering and is hosted on a VPS.
+                                </p>
+                            </td>
+                            <td style="border: none; padding: 0">
+                                <img src="/images/profile.jpg" style="border: 2px solid var(--primary-color); border-radius: 3px;" alt="Linkedin Profile Picture">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                I am a programmer who mostly works in low level languages like C (my favorite) and Rust with 
+                experience with the soy based languages like Python and JavaScript. I do my best to adhere to 
+                use only FOSS software like Linux and will only make exceptions for my addiction to video 
+                games. I love to talk and help with other people so contact me however you like. Put a comment 
+                on my site below and check out the other tabs I got on my site.<span class="blink"> |</span>
+                </p>
+            </div>
+            <div class="box b33">
+                <h4 style="text-align: center">Status</h4>
+                <p style="text-align: center">{{ .status }}</p>
+            </div>
+            <div class="box b33">
+                <a href="https://www.steamidfinder.com/lookup/76561198214490007/" target="_"><img src="https://www.steamidfinder.com/signature/76561198214490007.png" style="height:80px; width:auto; margin: 0 auto;" alt="Ewheeler121 Steam Signature"/></a>
+            </div>
+            <div class="box b33">
+                <h4 style="text-align: center">Hit-Counter</h4>
+                <p style="text-align: center">{{ .uniqueHits }} unique visits</p>
+                <p style="text-align: center">{{ .hits }} normal visits</p>
+            </div>
+            <div class="scroll-container">
+                <div class="scroll-content">
+                    <img src="/images/1080p.gif" loading="lazy" alt="1080p" width="88" height="31">
+                    <img src="/images/css.gif" loading="lazy" alt="css" width="88" height="31">
+                    <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_"><img src="/images/gpl3.gif" loading="lazy" alt="gpl3" width="88" height="31"></a>
+                    <a href="https://neomutt.org/" target="_"><img src="/images/mutt.gif" loading="lazy" alt="mutt" width="88" height="31"></a>
+                    <img src="/images/2001.gif" loading="lazy" alt="2001" width="88" height="31">
+                    <a href="https://discord.com/" target="_"><img src="/images/discord2.gif" loading="lazy" alt="discord2" width="88" height="31"></a>
+                    <img src="/images/hatemac_b.gif" loading="lazy" alt="hatemac_b" width="88" height="31">
+                    <a href="https://neovim.io/" target="_"><img src="/images/neovim.gif" loading="lazy" alt="neovim" width="88" height="31"></a>
+                    <a href="https://www.torproject.org/" target="_"><img src="/images/tor.gif" loading="lazy" alt="tor" width="88" height="31"></a>
+                    <img src="/images/anythingbut.gif" loading="lazy" alt="anythingbut" width="88" height="31">
+                    <img src="/images/dynamiclogo.gif" loading="lazy" alt="dynamiclogo" width="88" height="31">
+                    <img src="/images/hatems.gif" loading="lazy" alt="hatems" width="88" height="31">
+                    <a href="https://www.kernel.org/" target="_"><img src="/images/penguins.gif" loading="lazy" alt="penguins" width="88" height="31"></a>
+                    <a href="https://artixlinux.org/" target="_"><img src="/images/Artix.gif" loading="lazy" alt="Artix" width="88" height="31"></a>
+                    <img src="/images/phonechump.gif" loading="lazy" alt="phonechump" width="88" height="31">
+                    <a href="https://wiby.me/" target="_"><img src="/images/wiby.gif" loading="lazy" alt="wiby" width="88" height="31"></a>
+                    <img src="/images/fftake.gif" loading="lazy" alt="fftake" width="88" height="31">
+                    <img src="/images/jesus_now.gif" loading="lazy" alt="jesus_now" width="88" height="31">
+                    <a href="https://ewheeler121.xyz/rss" target="_"><img src="/images/rss-button.gif" loading="lazy" alt="github-check" width="88" height="31"></a>
+                    <img src="/images/win10no.gif" loading="lazy" alt="win10no" width="88" height="31">
+                    <a href="https://github.com/Ewheeler121" target="_"><img src="/images/github-check.gif" loading="lazy" alt="github-check" width="88" height="31"></a>
+                    <img src="/images/keep.gif" loading="lazy" alt="keep" width="88" height="31">
+                    <img src="/images/www.gif" loading="lazy" alt="www" width="88" height="31">
+                    <img src="/images/csbanner.gif" loading="lazy" alt="csbanner" width="88" height="31">
+                    <img src="/images/gnu-linux.gif" loading="lazy" alt="gnu-linux" width="88" height="31">
+                    <a href="https://landchad.net/" target="_"><img src="/images/landchad.gif" loading="lazy" alt="landchad" width="88" height="31"></a>
+                    <a href="https://steamcommunity.com/id/Ewheeler121" target="_"><img src="/images/steam.gif" alt="steam" width="88" height="31"></a>
+                </div>
+            </div>
+            <div class="box b60">
+                <h3>Blogs</h3>
+                <ul>
+                    {{ if .blog }}
+                        {{ range .blog }}
+                        <li><a href="/blog/{{ .Link }}">{{ .Title }}</a></li>
+                        {{ end }}
+                    {{ else }}
+                        <li>No Blogs yet :(</li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="box b40">
+                <h3>Projects</h3>
+                <ul>
+                    {{ if .project }}
+                        {{ range .project }}
+                        <li><a href="/project/{{ .Link }}">{{ .Title }}</a></li>
+                        {{ end }}
+                    {{ else }}
+                        <li>No Projects yet :(</li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="box b100">
+                <h3>Comments</h3>
+                <iframe src="/comment-preview#bottom" style="width: 100%; height: 250px"></iframe>
+                <form action="/submit-comment" method="post" id="comment-form">
+                    <div class="row">
+                        <div>
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div>
+                            <label for="website">Website(optional):</label>
+                            <input type="text" id="website" name="website">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="comment">Comment:</label>
+                        <textarea id="comment" name="comment" style="flex-grow: 1;" required></textarea>
+                    </div>
+                    <div class="row">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

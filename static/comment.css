@@ -1,0 +1,31 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    background-color: black;
+    max-height: 200px;
+    width: 100%;
+}
+
+.user {
+    width: 30vw;
+}
+.comment {
+    width: 100vw;
+}
+
+table {
+     border-collapse: separate;
+     border-spacing: 0 10px;
+}
+
+td {
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+h4, p {
+    margin: 0px;
+    padding: 0px;
+}
