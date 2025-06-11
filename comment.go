@@ -21,7 +21,7 @@ type Comment struct {
 
 func renderComments() template.HTML {
     var comments []Comment
-    rows, err := db.Query("SELECT Username, Site, Comment FROM (SELECT * FROM Comment ORDER BY id DESC LIMIT 25) AS row ORDER BY ID ASC")
+    rows, err := db.Query("SELECT Username, Site, Comment FROM (SELECT * FROM Comment ORDER BY id DESC LIMIT 100) AS row ORDER BY ID ASC")
     if err != nil {
         return template.HTML("<h1>ERROR: database returned NULL</h1>")
     }
