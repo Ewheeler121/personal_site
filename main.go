@@ -43,7 +43,7 @@ func main() {
     http.HandleFunc("/favicon.ico", faviconHandler)
     http.HandleFunc("/", indexHandler)
 
-	err = http.ListenAndServeTLS("127.0.0.1:3001", "certs/domain.cert.pem", "certs/private.key.pem", nil)
+	err = http.ListenAndServe("127.0.0.1:3001", nil)
     if err != nil {
         fmt.Println("ERROR: could not start server: ", err)
     }
